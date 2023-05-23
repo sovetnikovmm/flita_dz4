@@ -3,7 +3,7 @@ import random
 import time
 import matplotlib.pyplot as plt
 
-vertex_counts = [100,200,500,1000,2000,3000,5000,7000,10000]  # список количества вершин
+vertex_counts = [100,200,500,700,1000,2000,3000,4000,5000]  # список количества вершин
 time_records = []
 
 for vertex_count in vertex_counts:
@@ -17,8 +17,7 @@ for vertex_count in vertex_counts:
 
     # Показываем пользователю список ребер
     print(f"List of edges for graph with {vertex_count} vertices:")
-    for edge in edge_list:
-        print(edge)
+    print(', '.join(map(str, edge_list)))
 
     # Просим пользователя выбрать ребро для удаления и проверяем его ввод
     while True:
@@ -35,19 +34,19 @@ for vertex_count in vertex_counts:
     G.remove_edge(*edge_to_remove)
     end_time = time.time()
     edge_removal_time = end_time - start_time
-    print(f"Time to remove edge: {edge_removal_time} seconds")
 
     # Выполняем сортировку вершин по убыванию степени и замеряем время
     start_time = time.time()
     sorted_vertices = sorted(G.nodes(), key=lambda x: G.degree(x), reverse=True)
     end_time = time.time()
     sorting_time = end_time - start_time
-    print(f"Time to sort vertices: {sorting_time} seconds")
+    total_time = edge_removal_time + sorting_time
 
     # Добавляем общее время выполнения в список
-    time_records.append(edge_removal_time + sorting_time)
+    time_records.append(total_time)
 
     print(f"Sorted vertices for modified graph: {sorted_vertices}\n")
+    print(f"Total running time of the algorithm : {format(total_time,'.10f')} seconds")
 
 # Построим график времени выполнения в зависимости от количества вершин
 plt.plot(vertex_counts, time_records)
