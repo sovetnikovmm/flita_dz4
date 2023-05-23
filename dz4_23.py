@@ -3,7 +3,7 @@ import random
 import time
 import matplotlib.pyplot as plt
 
-vertex_counts = [50,100,200,300,400,500,700,1000,1500,2000,2500,3000,3500,4000,5000]  # список количества вершин
+vertex_counts = [100,200,500,1000,2000,3000,5000,7000,10000]  # список количества вершин
 time_records = []
 
 for vertex_count in vertex_counts:
@@ -35,12 +35,14 @@ for vertex_count in vertex_counts:
     G.remove_edge(*edge_to_remove)
     end_time = time.time()
     edge_removal_time = end_time - start_time
+    print(f"Time to remove edge: {edge_removal_time} seconds")
 
     # Выполняем сортировку вершин по убыванию степени и замеряем время
     start_time = time.time()
     sorted_vertices = sorted(G.nodes(), key=lambda x: G.degree(x), reverse=True)
     end_time = time.time()
     sorting_time = end_time - start_time
+    print(f"Time to sort vertices: {sorting_time} seconds")
 
     # Добавляем общее время выполнения в список
     time_records.append(edge_removal_time + sorting_time)
